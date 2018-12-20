@@ -1,0 +1,2 @@
+export $(cat bin/env | xargs)
+DOCKER_REGISTRY=$ECR_URL docker-compose build

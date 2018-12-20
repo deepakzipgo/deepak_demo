@@ -1,5 +1,4 @@
-. bin/env
-bin/login
+export $(cat bin/env | xargs);
 
 for r in $(grep 'image: \${DOCKER_REGISTRY}' docker-compose.yml | sed -e 's/^.*\///'); do 
   aws ecr create-repository --repository-name "$r"
