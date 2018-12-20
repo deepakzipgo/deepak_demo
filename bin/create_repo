@@ -1,0 +1,6 @@
+. bin/env
+
+for r in $(grep 'image: \${DOCKER_REGISTRY}' docker-compose.yml | sed -e 's/^.*\///'); do 
+  echo "$r";
+  echo "$ECR_URL"
+done
