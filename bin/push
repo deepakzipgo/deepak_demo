@@ -1,2 +1,8 @@
 export $(cat bin/env | xargs)
-DOCKER_REGISTRY=$ECR_URL docker-compose push
+
+if [ "$1" == "compose" ];then
+  DOCKER_REGISTRY=$ECR_URL DOCKER_REPO=$IMAGE_NAME docker-compose push
+else
+	docker tag $IMAGE_NAME_NO_COMPOSE $ECR_URL/$IMAGE_NAME_NO_COMPOSE
+	docker push $ECR_URL/$IMAGE_NAME_NO_COMPOSE
+fi
