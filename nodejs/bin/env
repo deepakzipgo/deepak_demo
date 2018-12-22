@@ -1,0 +1,4 @@
+AWS_PROFILE=ecrdemo
+AWS_REGION=ap-south-1
+ECR_URL=449752743692.dkr.ecr.ap-south-1.amazonaws.com
+IMAGE_NAME=iam_nodejs

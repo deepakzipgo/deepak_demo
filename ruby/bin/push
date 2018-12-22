@@ -1,0 +1,4 @@
+export $(cat bin/env | xargs)
+
+docker tag $IMAGE_NAME $ECR_URL/$IMAGE_NAME
+docker push $ECR_URL/$IMAGE_NAME

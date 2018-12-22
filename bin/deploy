@@ -1,0 +1,69 @@
+#!/bin/bash
+
+root_path=$PWD
+user_path=$HOME
+
+# BDD:
+# Single repo for multiple microservices
+# Each microservice will deploy by changes
+# Folder nginx, dhango, nodejs, ruby are microservice app
+
+# step 1: Initialize checksums
+# checksum is used to validate change
+# we use $HOME for checksums because jenkins will alway replace workspace with new one
+echo '-> Initialize checksums.'
+
+if [ ! -d $user_path/.checksums ];then
+  mkdir $user_path/.checksums 
+fi
+
+if [ ! -f $user_path/.checksums/nginx ];then
+  echo "" > $user_path/.checksums/nginx
+fi
+
+if [ ! -f $user_path/.checksums/django ];then
+  echo "" > $user_path/.checksums/django
+fi
+
+if [ ! -f $user_path/.checksums/nodejs ];then
+  echo "" > $user_path/.checksums/nodejs
+fi
+
+if [ ! -f $user_path/.checksums/ruby ];then
+  echo "" > $user_path/.checksums/ruby
+fi
+
+# step 2: Verify & Deploy
+# Verify checksum to each microservice
+# macos install : brew install md5sha1sum
+if [ $(tar cfP - $root_path/nginx | md5sum | awk '{print $1}') != "$(head $user_path/.checksums/nginx)" ];then
+  echo '-> Deploy Nginx.'
+  cd $root_path/nginx && make deploy
+  tar cfP - $root_path/nginx | md5sum | awk '{print $1}' > $user_path/.checksums/nginx
+else
+  echo '-> No deployment for Nginx'
+fi
+
+if [ $(tar cfP - $root_path/django | md5sum | awk '{print $1}') != "$(head $user_path/.checksums/django)" ];then
+  echo '-> Deploy Django.'
+  cd $root_path/django && make deploy
+  tar cfP - $root_path/django | md5sum | awk '{print $1}' > $user_path/.checksums/django
+else
+  echo '-> No deployment for django'
+fi
+
+if [ $(tar cfP - $root_path/ruby | md5sum | awk '{print $1}') != "$(head $user_path/.checksums/ruby)" ];then
+  echo '-> Deploy Ruby.'
+  cd $root_path/ruby && make deploy
+  tar cfP - $root_path/ruby | md5sum | awk '{print $1}' > $user_path/.checksums/ruby
+else
+  echo '-> No deployment for ruby'
+fi
+
+if [ $(tar cfP - $root_path/nodejs | md5sum | awk '{print $1}') != "$(head $user_path/.checksums/nodejs)" ];then
+  echo '-> Deploy NodeJS.'
+  cd $root_path/nodejs && make deploy
+  tar cfP - $root_path/nodejs | md5sum | awk '{print $1}' > $user_path/.checksums/nodejs
+else
+  echo '-> No deployment for nodejs'
+fi

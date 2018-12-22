@@ -1,5 +1,4 @@
 AWS_PROFILE=ecrdemo
 AWS_REGION=ap-south-1
 ECR_URL=449752743692.dkr.ecr.ap-south-1.amazonaws.com
-IMAGE_NAME=deepak_demo
-IMAGE_NAME_NO_COMPOSE=ecrnocompose
+IMAGE_NAME=iam_ruby

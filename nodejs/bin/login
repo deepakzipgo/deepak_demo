@@ -1,0 +1,2 @@
+export $(cat bin/env | xargs);
+eval $(aws ecr get-login --no-include-email --region $AWS_REGION --profile $AWS_PROFILE)
