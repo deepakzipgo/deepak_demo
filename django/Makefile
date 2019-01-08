@@ -1,4 +1,4 @@
-deploy: login build push
+deploy: login build push restart
 deploy_compose: login build_compose push_compose
 
 build: 
@@ -12,6 +12,9 @@ push:
 
 repo:
 	bin/create_repo
+
+restart:
+	bin/restart_ecs
 
 up:
 	bin/up

@@ -1,0 +1,2 @@
+export $(cat bin/env | xargs)
+aws ecs run-task --task-definition $IMAGE_NAME_NO_COMPOSE --cluster microservice --profile $AWS_PROFILE --launch-type FARGATE --network-configuration '{"awsvpcConfiguration":{"subnets":["subnet-9d4967d7", "subnet-6805e801"],"securityGroups":["sg-05d8507aa0bf5c7da"],"assignPublicIp":"DISABLED"}}'

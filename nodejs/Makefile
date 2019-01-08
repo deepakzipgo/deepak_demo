@@ -1,4 +1,4 @@
-deploy: login build push
+deploy: login build push restart
 
 build: 
 	bin/build
@@ -11,4 +11,7 @@ push:
 
 up:
 	bin/up
+
+restart:
+	bin/restart_ecs
 
